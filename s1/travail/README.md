@@ -45,6 +45,3 @@ Résultat attendu de `tout_lancer.sql` : 180 / 400 / 800 / 480 lignes intégrée
 - Le catalogue produits n'est pas utilisé en S1.
 - Sur Mac, il ne faut pas mettre le projet dans un dossier iCloud (Documents) : Docker n'arrive pas à lire les fichiers (`Input/output error`).
 
-## Utilisation de l'IA
-
-J'ai utilisé Claude pour m'aider à écrire les requêtes et à trouver les anomalies. J'ai lancé tous les scripts moi-même sur ma machine et vérifié que les chiffres étaient cohérents (reçues = intégrées + rejetées, encaissé = CA pour les commandes terminées).
