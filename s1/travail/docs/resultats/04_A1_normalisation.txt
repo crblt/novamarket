@@ -1,0 +1,52 @@
+BEGIN
+CREATE TABLE
+COPY 3
+== État initial ==
+ reservation_id | salle_id |     salle_nom     | responsable 
+----------------+----------+-------------------+-------------
+              1 |        1 | Atelier Céramique | Ariane
+              2 |        1 | Atelier Céramique | Ariane
+              3 |        2 | Atelier Textile   | Sam
+
+== Anomalie de mise à jour : la salle 1 change de responsable, une seule ligne est modifiée ==
+UPDATE 1
+ salle_id |  responsables  | versions 
+----------+----------------+----------
+        1 | Ariane / Bruno |        2
+        2 | Sam            |        1
+
+== Anomalie d'insertion : déclarer l'Atelier Photo (salle 3) avant sa première réservation ==
+DO
+== Anomalie de suppression : annuler la dernière réservation de la salle 2 ==
+psql:/s1/travail/sql/A1_normalisation.sql:38: INFO:  Insertion refusée : null value in column "reservation_id" of relation "planning" violates not-null constraint (il faut inventer une réservation pour exister)
+DELETE 1
+ lignes_salle_2 | responsable_salle_2 
+----------------+---------------------
+              0 | 
+
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+COPY 3
+== Contrôle : une seule version (nom, responsable) par salle dans la source ==
+ salle_id | versions 
+----------+----------
+        1 |        1
+        2 |        1
+
+INSERT 0 2
+INSERT 0 3
+== Les trois opérations ne posent plus de problème ==
+UPDATE 1
+INSERT 0 1
+DELETE 1
+ salle_id |        nom        | responsable | reservations 
+----------+-------------------+-------------+--------------
+        1 | Atelier Céramique | Bruno       |            2
+        2 | Atelier Textile   | Sam         |            0
+        3 | Atelier Photo     |             |            0
+
+== La clé étrangère protège désormais contre une réservation sur une salle inconnue ==
+psql:/s1/travail/sql/A1_normalisation.sql:91: INFO:  Insertion refusée : insert or update on table "reservations_n" violates foreign key constraint "reservations_n_salle_id_fkey"
+DO
+ROLLBACK

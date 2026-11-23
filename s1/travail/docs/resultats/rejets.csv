@@ -1,0 +1,3 @@
+source,ligne_fichier,cle,regle,cause,contenu
+order_items.csv,802,7,R4,doublon exact de la ligne 8 du fichier,"{""order_id"": ""4"", ""quantity"": ""3"", ""product_id"": ""5"", ""order_item_id"": ""7"", ""unit_price_cents"": ""1125""}"
+order_items.csv,803,801,R6,order_id 9999 absent de metier.orders,"{""order_id"": ""9999"", ""quantity"": ""1"", ""product_id"": ""1"", ""order_item_id"": ""801"", ""unit_price_cents"": ""625""}"

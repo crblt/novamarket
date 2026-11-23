@@ -1,0 +1,69 @@
+== A1 · Doublons exacts dans les fichiers reçus (toutes colonnes identiques) ==
+     source      | lignes_en_trop 
+-----------------+----------------
+ customers.csv   |              0
+ orders.csv      |              0
+ order_items.csv |              1
+ payments.ndjson |              0
+
+-- détail des lignes d'articles répétées
+ order_item_id | order_id | product_id | quantity | unit_price_cents | occurrences | lignes_fichier 
+---------------+----------+------------+----------+------------------+-------------+----------------
+ 7             | 4        | 5          | 3        | 1125             |           2 | {8,802}
+
+== A2 · Identifiants répétés avec un contenu différent (conflits de clé) ==
+ source | cle | versions 
+--------+-----+----------
+
+== A3 · Références orphelines dans la réception ==
+         relation          | ligne_fichier | cle | reference 
+---------------------------+---------------+-----+-----------
+ order_items.csv -> orders |           803 | 801 | 9999
+
+== A4 · Paiements de même commande, même date et même montant : faux doublons ? ==
+ groupes | paiements_concernes | somme_egale_au_commande | montant_perdu_si_dedoublonne_eur 
+---------+---------------------+-------------------------+----------------------------------
+      27 |                  54 |                      27 |                          1013.75
+
+-- exemples
+ order_id | paiements |  montants   | montant_lignes_cents 
+----------+-----------+-------------+----------------------
+        5 | {5,6}     | {2750,2750} |                 5500
+       30 | {35,36}   | {4750,4750} |                 9500
+       60 | {71,72}   | {6625,6625} |                13250
+
+== A5 · Multiplication des montants en joignant articles et paiements ==
+                 methode                  | lignes_jointure | lignes_eur | paiements_eur 
+------------------------------------------+-----------------+------------+---------------
+ jointure naïve orders x items x payments |             720 |   29472.50 |      52420.00
+ pré-agrégation au grain commande         |                 |   26210.00 |      26210.00
+
+-- facteur de multiplication par commande terminée
+ nb_lignes | nb_paiements | lignes_apres_jointure | commandes | facteur_sur_montant_lignes | facteur_sur_montant_paiements 
+-----------+--------------+-----------------------+-----------+----------------------------+-------------------------------
+         2 |            1 |                     2 |       280 |                          1 |                             2
+         2 |            2 |                     4 |        40 |                          2 |                             2
+
+== A6 · Impact du statut de commande sur le chiffre d'affaires ==
+            perimetre             | commandes | montant_lignes_eur | ecart_vs_terminees_eur 
+----------------------------------+-----------+--------------------+------------------------
+ terminées (retenu)               |       320 |           26210.00 |                   0.00
+ terminées + en attente           |       360 |           29433.75 |                3223.75
+ tous statuts (annulées incluses) |       400 |           32717.50 |                6507.50
+
+== A7 · Commandes annulées dont les paiements sont capturés ==
+ commandes_annulees | avec_capture | capture_eur | paiements 
+--------------------+--------------+-------------+-----------
+                 40 |           40 |     3283.75 |        80
+
+== A8 · Cohérence des dates et des statuts de paiement ==
+ paiements_avant_commande | paiements_apres_commande | attente_sur_terminee | capture_sur_en_attente | capture_sur_annulee 
+--------------------------+--------------------------+----------------------+------------------------+---------------------
+                        0 |                        0 |                    0 |                      0 |                  80
+
+== A9 · Même produit plusieurs fois dans une commande, clés JSON inattendues ==
+              controle               |                      resultat                       
+-------------------------------------+-----------------------------------------------------
+ commandes avec un produit répété    | 0
+ clés présentes dans payments.ndjson | amount_cents, order_id, paid_on, payment_id, status
+
