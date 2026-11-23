@@ -40,8 +40,7 @@ Résultat attendu de `tout_lancer.sql` : 180 / 400 / 800 / 480 lignes intégrée
 
 ## Limites
 
-- Si un fichier contient une valeur du mauvais type (par exemple du texte dans une colonne de nombres), le `\copy` plante. Je n'ai pas géré ce cas car il n'arrive pas dans les fichiers fournis.
-- Je ne sais pas si les paiements des commandes annulées ont été remboursés.
-- Le catalogue produits n'est pas utilisé en S1.
-- Sur Mac, il ne faut pas mettre le projet dans un dossier iCloud (Documents) : Docker n'arrive pas à lire les fichiers (`Input/output error`).
+- si un fichier contient une valeur du mauvais type (par exemple du texte dans une colonne de nombres), le `\copy` plante. Je n'ai pas géré ce cas car il n'arrive pas dans les fichiers fournis
+- Je ne sais pas si les paiements des commandes annulées ont été remboursés
+- Le catalogue produits n'est pas utilisé en S1
 
