@@ -1,6 +1,6 @@
 # Référence SQL NovaMarket
 
-Référence cumulative S1–S6. Les exemples utilisent des réservations d'ateliers culturels, des capteurs et des cuves. Les commandes s'exécutent dans `psql`, dans le conteneur dbt ou dans l'éditeur natif de Metabase selon la section. [Exemple S1](../novamarket/s1/exemple/import.sql)
+Référence cumulative S1–S6. Les exemples utilisent des réservations d'ateliers culturels, des capteurs et des cuves. Les commandes s'exécutent dans `psql`, dans le conteneur dbt ou dans l'éditeur natif de Metabase selon la section. [Exemple S1](s1/exemple/import.sql)
 
 | Commande ou clause | Utilité | Syntaxe générale | Exemple |
 | --- | --- | --- | --- |
@@ -52,7 +52,7 @@ Les commandes commençant par `\` sont interprétées par `psql` et se terminent
 
 Le tri dans `OVER` détermine le calcul. Le `ORDER BY` final détermine l'affichage. Pour garder les ex æquo, le tri de `RANK` porte uniquement sur les critères de classement. Pour obtenir un ordre stable entre lignes de même valeur avec `NTILE`, ajouter une clé unique au tri. `LAG` et `LEAD` lisent les lignes voisines disponibles. S'il manque une période, elles accèdent directement à la prochaine ligne existante. Pour un parcours de données hiérarchiques, contrôler les cycles et prévoir une condition d'arrêt.
 
-[Exemple S2 exécutable](../novamarket/s2/exemple.sql)
+[Exemple S2 exécutable](s2/exemple.sql)
 
 ## S3 · Plans d'exécution et index
 
@@ -67,7 +67,7 @@ Le tri dans `OVER` détermine le calcul. Le `ORDER BY` final détermine l'affich
 | `pg_relation_size`, `pg_total_relation_size`, `pg_size_pretty` | Mesurer le stockage principal ou la taille totale avec index, puis rendre la mesure lisible. | `SELECT pg_size_pretty(pg_total_relation_size('schema.table'));` | `SELECT pg_size_pretty(pg_relation_size('releves_capteur_idx'));` |
 | `\timing` dans psql | Afficher la durée vue par le client pour chaque commande SQL. | `\timing on` ou `\timing off` | Activer `\timing on` avant la requête sur les relevés. |
 
-Les coûts estimés guident le choix du plan. Pour comparer des relevés, noter les temps d'exécution, les volumes, les buffers et le nombre de boucles. [Exemple S3 exécutable](../novamarket/s3/exemple.sql)
+Les coûts estimés guident le choix du plan. Pour comparer des relevés, noter les temps d'exécution, les volumes, les buffers et le nombre de boucles. [Exemple S3 exécutable](s3/exemple.sql)
 
 ## S4 · dbt Core, YAML et Jinja
 
@@ -92,7 +92,7 @@ sources:
       - name: releves
 ```
 
-Ce YAML donne le nom logique `capteurs.releves`. dbt résout la table physique à partir des propriétés de la source. Une vue, une table ou un SQL intégré en CTE correspondent respectivement à `view`, `table` et `ephemeral`. [Exemple S4 exécutable](../novamarket/s4/README.md#exemple-indépendant) · [Matérialisations dbt](https://docs.getdbt.com/docs/build/materializations)
+Ce YAML donne le nom logique `capteurs.releves`. dbt résout la table physique à partir des propriétés de la source. Une vue, une table ou un SQL intégré en CTE correspondent respectivement à `view`, `table` et `ephemeral`. [Exemple S4 exécutable](s4/README.md#exemple-indépendant) · [Matérialisations dbt](https://docs.getdbt.com/docs/build/materializations)
 
 ## S5 · Tests, documentation et snapshots dbt
 
@@ -121,7 +121,7 @@ snapshots:
       updated_at: updated_at
 ```
 
-Pour la stratégie `timestamp`, la source doit contenir une seule ligne par clé et faire progresser `updated_at` à chaque changement. Dans le kit, l'horodatage est de type PostgreSQL `timestamp`, en UTC par convention. Pour les tests unitaires, aligner les valeurs attendues sur les types réellement renvoyés, notamment l'échelle des nombres décimaux. [Exemple S5](../novamarket/s5/README.md#exemple-sur-des-cuves) · [Tests unitaires dbt](https://docs.getdbt.com/docs/build/unit-tests) · [Snapshots dbt](https://docs.getdbt.com/docs/build/snapshots)
+Pour la stratégie `timestamp`, la source doit contenir une seule ligne par clé et faire progresser `updated_at` à chaque changement. Dans le kit, l'horodatage est de type PostgreSQL `timestamp`, en UTC par convention. Pour les tests unitaires, aligner les valeurs attendues sur les types réellement renvoyés, notamment l'échelle des nombres décimaux. [Exemple S5](s5/README.md#exemple-sur-des-cuves) · [Tests unitaires dbt](https://docs.getdbt.com/docs/build/unit-tests) · [Snapshots dbt](https://docs.getdbt.com/docs/build/snapshots)
 
 ## S6 · Publication et vérification des indicateurs BI
 
@@ -136,4 +136,4 @@ Pour la stratégie `timestamp`, la source doit contenir une seule ligne par clé
 | Prédicat temporel sur un intervalle | Rattacher un événement à une version en incluant le début et en excluant la fin. | `instant >= debut AND (instant < fin OR fin IS NULL)` | Rapprocher une mesure d'une période de calibration. |
 | `[[AND {{periode}}]]` dans Metabase | Ajouter un filtre de champ optionnel à une question SQL native. | `WHERE true [[AND {{periode}}]]` | Associer `periode` à la colonne `jour` des relevés. |
 
-Comparer les métriques à périmètre et grain identiques. Contrôler l'arrondi sur la valeur affichée et conserver les montants bruts dans les sorties de rapprochement. [Exemple S6](../novamarket/s6/README.md#démonstration-indépendante) · [Filtres Metabase](https://www.metabase.com/docs/latest/questions/native-editor/field-filters)
+Comparer les métriques à périmètre et grain identiques. Contrôler l'arrondi sur la valeur affichée et conserver les montants bruts dans les sorties de rapprochement. [Exemple S6](s6/README.md#démonstration-indépendante) · [Filtres Metabase](https://www.metabase.com/docs/latest/questions/native-editor/field-filters)

@@ -1,0 +1,134 @@
+                                                                      QUERY PLAN                                                                       
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+ Aggregate  (cost=288.21..288.22 rows=1 width=16) (actual time=0.775..0.775 rows=1 loops=1)
+   Buffers: shared hit=5 read=98
+   ->  Index Scan using benchmark_sales_store_idx on benchmark_sales  (cost=0.43..286.36 rows=370 width=4) (actual time=0.035..0.761 rows=100 loops=1)
+         Index Cond: (store_id = 42)
+         Buffers: shared hit=5 read=98
+ Planning:
+   Buffers: shared hit=72 read=1
+ Planning Time: 0.261 ms
+ Execution Time: 0.834 ms
+(9 rows)
+
+                                                                      QUERY PLAN                                                                       
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+ Aggregate  (cost=288.21..288.22 rows=1 width=16) (actual time=0.076..0.077 rows=1 loops=1)
+   Buffers: shared hit=103
+   ->  Index Scan using benchmark_sales_store_idx on benchmark_sales  (cost=0.43..286.36 rows=370 width=4) (actual time=0.005..0.061 rows=100 loops=1)
+         Index Cond: (store_id = 42)
+         Buffers: shared hit=103
+ Planning Time: 0.032 ms
+ Execution Time: 0.086 ms
+(7 rows)
+
+                                                                      QUERY PLAN                                                                       
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+ Aggregate  (cost=288.21..288.22 rows=1 width=16) (actual time=0.032..0.032 rows=1 loops=1)
+   Buffers: shared hit=103
+   ->  Index Scan using benchmark_sales_store_idx on benchmark_sales  (cost=0.43..286.36 rows=370 width=4) (actual time=0.003..0.026 rows=100 loops=1)
+         Index Cond: (store_id = 42)
+         Buffers: shared hit=103
+ Planning Time: 0.017 ms
+ Execution Time: 0.037 ms
+(7 rows)
+
+                                                                      QUERY PLAN                                                                       
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+ Aggregate  (cost=288.21..288.22 rows=1 width=16) (actual time=0.031..0.031 rows=1 loops=1)
+   Buffers: shared hit=103
+   ->  Index Scan using benchmark_sales_store_idx on benchmark_sales  (cost=0.43..286.36 rows=370 width=4) (actual time=0.004..0.024 rows=100 loops=1)
+         Index Cond: (store_id = 42)
+         Buffers: shared hit=103
+ Planning Time: 0.022 ms
+ Execution Time: 0.037 ms
+(7 rows)
+
+                                                                      QUERY PLAN                                                                       
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+ Finalize Aggregate  (cost=136631.49..136631.50 rows=1 width=16) (actual time=641.028..645.265 rows=1 loops=1)
+   Buffers: shared hit=3679 read=60065
+   ->  Gather  (cost=136631.27..136631.48 rows=2 width=16) (actual time=640.840..645.232 rows=3 loops=1)
+         Workers Planned: 2
+         Workers Launched: 2
+         Buffers: shared hit=3679 read=60065
+         ->  Partial Aggregate  (cost=135631.27..135631.28 rows=1 width=16) (actual time=622.116..622.116 rows=1 loops=3)
+               Buffers: shared hit=3679 read=60065
+               ->  Parallel Seq Scan on benchmark_sales  (cost=0.00..115833.71 rows=3959512 width=4) (actual time=3.283..363.198 rows=3166667 loops=3)
+                     Filter: (store_id = 1)
+                     Rows Removed by Filter: 166667
+                     Buffers: shared hit=3679 read=60065
+ Planning Time: 0.026 ms
+ JIT:
+   Functions: 17
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 0.680 ms (Deform 0.234 ms), Inlining 0.000 ms, Optimization 0.502 ms, Emission 9.313 ms, Total 10.495 ms
+ Execution Time: 656.271 ms
+(18 rows)
+
+                                                                      QUERY PLAN                                                                       
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+ Finalize Aggregate  (cost=136631.49..136631.50 rows=1 width=16) (actual time=836.354..847.868 rows=1 loops=1)
+   Buffers: shared hit=3775 read=59969
+   ->  Gather  (cost=136631.27..136631.48 rows=2 width=16) (actual time=835.709..847.653 rows=3 loops=1)
+         Workers Planned: 2
+         Workers Launched: 2
+         Buffers: shared hit=3775 read=59969
+         ->  Partial Aggregate  (cost=135631.27..135631.28 rows=1 width=16) (actual time=824.362..824.365 rows=1 loops=3)
+               Buffers: shared hit=3775 read=59969
+               ->  Parallel Seq Scan on benchmark_sales  (cost=0.00..115833.71 rows=3959512 width=4) (actual time=3.129..499.686 rows=3166667 loops=3)
+                     Filter: (store_id = 1)
+                     Rows Removed by Filter: 166667
+                     Buffers: shared hit=3775 read=59969
+ Planning Time: 0.087 ms
+ JIT:
+   Functions: 17
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 0.587 ms (Deform 0.209 ms), Inlining 0.000 ms, Optimization 0.396 ms, Emission 9.466 ms, Total 10.449 ms
+ Execution Time: 848.201 ms
+(18 rows)
+
+                                                                       QUERY PLAN                                                                       
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+ Finalize Aggregate  (cost=136631.49..136631.50 rows=1 width=16) (actual time=748.733..752.549 rows=1 loops=1)
+   Buffers: shared hit=3871 read=59873
+   ->  Gather  (cost=136631.27..136631.48 rows=2 width=16) (actual time=748.255..752.491 rows=3 loops=1)
+         Workers Planned: 2
+         Workers Launched: 2
+         Buffers: shared hit=3871 read=59873
+         ->  Partial Aggregate  (cost=135631.27..135631.28 rows=1 width=16) (actual time=713.251..713.251 rows=1 loops=3)
+               Buffers: shared hit=3871 read=59873
+               ->  Parallel Seq Scan on benchmark_sales  (cost=0.00..115833.71 rows=3959512 width=4) (actual time=14.482..412.406 rows=3166667 loops=3)
+                     Filter: (store_id = 1)
+                     Rows Removed by Filter: 166667
+                     Buffers: shared hit=3871 read=59873
+ Planning Time: 0.315 ms
+ JIT:
+   Functions: 17
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 5.195 ms (Deform 0.349 ms), Inlining 0.000 ms, Optimization 1.523 ms, Emission 41.990 ms, Total 48.708 ms
+ Execution Time: 757.271 ms
+(18 rows)
+
+                                                                      QUERY PLAN                                                                       
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+ Finalize Aggregate  (cost=136631.49..136631.50 rows=1 width=16) (actual time=704.732..707.985 rows=1 loops=1)
+   Buffers: shared hit=3967 read=59777
+   ->  Gather  (cost=136631.27..136631.48 rows=2 width=16) (actual time=704.444..707.966 rows=3 loops=1)
+         Workers Planned: 2
+         Workers Launched: 2
+         Buffers: shared hit=3967 read=59777
+         ->  Partial Aggregate  (cost=135631.27..135631.28 rows=1 width=16) (actual time=692.705..692.705 rows=1 loops=3)
+               Buffers: shared hit=3967 read=59777
+               ->  Parallel Seq Scan on benchmark_sales  (cost=0.00..115833.71 rows=3959512 width=4) (actual time=3.048..396.262 rows=3166667 loops=3)
+                     Filter: (store_id = 1)
+                     Rows Removed by Filter: 166667
+                     Buffers: shared hit=3967 read=59777
+ Planning Time: 0.108 ms
+ JIT:
+   Functions: 17
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 0.889 ms (Deform 0.323 ms), Inlining 0.000 ms, Optimization 0.461 ms, Emission 9.356 ms, Total 10.705 ms
+ Execution Time: 708.503 ms
+(18 rows)
+
