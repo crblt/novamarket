@@ -1,0 +1,49 @@
+                etape                | lignes 
+-------------------------------------+--------
+ fournisseur.offres (source)         |     20
+ dbt_dev.stg_offres (staging)        |     20
+ dbt_dev.mart_offres_produits (mart) |     24
+ metier.products (catalogue)         |     24
+(4 rows)
+
+ offres_dans_mart | offres_source | ca_mart_centimes | ca_s1_centimes 
+------------------+---------------+------------------+----------------
+               20 |            20 |          2621000 |        2621000
+(1 row)
+
+ offer_id | observed_on | supplier_id | product_id | price_cents | available_units |           lot_id           
+----------+-------------+-------------+------------+-------------+-----------------+----------------------------
+ O001     | 2026-11-24  | F01         |          1 |         625 |               2 | lot-20261124-155412-301221
+ O002     | 2026-11-24  | F02         |          2 |         750 |               4 | lot-20261124-155412-301221
+ O003     | 2026-11-24  | F03         |          3 |         875 |               6 | lot-20261124-155412-301221
+ O004     | 2026-11-24  | F01         |          4 |        1000 |               8 | lot-20261124-155412-301221
+ O006     | 2026-11-24  | F03         |          6 |        1250 |              12 | lot-20261124-155412-301221
+(5 rows)
+
+ product_id | product_name | category_id | nb_offres | prix_offre_min_cents | unites_disponibles | quantite_vendue | ca_cents | prix_moyen_vente_cents | ecart_vente_offre_cents 
+------------+--------------+-------------+-----------+----------------------+--------------------+-----------------+----------+------------------------+-------------------------
+          1 | Article 01   |          11 |         1 |                  625 |                  2 |              52 |    32500 |                    625 |                       0
+          2 | Article 02   |          11 |         1 |                  750 |                  4 |              78 |    58500 |                    750 |                       0
+          3 | Article 03   |          11 |         1 |                  875 |                  6 |              27 |    23625 |                    875 |                       0
+          4 | Article 04   |          11 |         1 |                 1000 |                  8 |              52 |    52000 |                   1000 |                       0
+          5 | Article 05   |          12 |         0 |                      |                  0 |              78 |    87750 |                   1125 |                        
+          6 | Article 06   |          12 |         1 |                 1250 |                 12 |              27 |    33750 |                   1250 |                       0
+          7 | Article 07   |          12 |         1 |                 1375 |                 14 |              52 |    71500 |                   1375 |                       0
+          8 | Article 08   |          12 |         1 |                 1500 |                 16 |              78 |   117000 |                   1500 |                       0
+(8 rows)
+
+ product_id | product_name 
+------------+--------------
+          5 | Article 05
+         10 | Article 10
+         17 | Article 17
+         24 | Article 24
+(4 rows)
+
+           lot_id           | statut | lues | inserees | mises_a_jour | inchangees | rejetees |               message                
+----------------------------+--------+------+----------+--------------+------------+----------+--------------------------------------
+ lot-20261124-155412-139603 | echec  |    5 |        0 |            0 |          0 |        0 | panne simulée après 5 lignes écrites
+ lot-20261124-155412-301221 | succes |   20 |       20 |            0 |          0 |        0 | 
+ lot-20261124-155412-428949 | succes |   20 |        0 |            0 |         20 |        0 | 
+(3 rows)
+

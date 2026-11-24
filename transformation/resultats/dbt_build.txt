@@ -1,0 +1,44 @@
+[0m14:54:57  Running with dbt=1.11.17
+[0m14:54:57  Registered adapter: postgres=1.11.0
+[0m14:54:57  Found 7 models, 11 data tests, 4 sources, 478 macros
+[0m14:54:57  
+[0m14:54:57  Concurrency: 2 threads (target='dev')
+[0m14:54:57  
+[0m14:54:58  1 of 16 START sql view model dbt_dev.stg_commandes ............................. [RUN]
+[0m14:54:58  2 of 16 START sql view model dbt_dev.stg_lignes_commande ....................... [RUN]
+[0m14:54:58  2 of 16 OK created sql view model dbt_dev.stg_lignes_commande .................. [[32mCREATE VIEW[0m in 0.07s]
+[0m14:54:58  1 of 16 OK created sql view model dbt_dev.stg_commandes ........................ [[32mCREATE VIEW[0m in 0.07s]
+[0m14:54:58  3 of 16 START sql view model dbt_dev.stg_offres ................................ [RUN]
+[0m14:54:58  4 of 16 START sql view model dbt_dev.stg_produits .............................. [RUN]
+[0m14:54:58  3 of 16 OK created sql view model dbt_dev.stg_offres ........................... [[32mCREATE VIEW[0m in 0.06s]
+[0m14:54:58  4 of 16 OK created sql view model dbt_dev.stg_produits ......................... [[32mCREATE VIEW[0m in 0.06s]
+[0m14:54:58  5 of 16 START test not_null_stg_lignes_commande_order_item_id .................. [RUN]
+[0m14:54:58  6 of 16 START test unique_stg_lignes_commande_order_item_id .................... [RUN]
+[0m14:54:58  5 of 16 PASS not_null_stg_lignes_commande_order_item_id ........................ [[32mPASS[0m in 0.03s]
+[0m14:54:58  7 of 16 START test not_null_stg_commandes_order_id ............................. [RUN]
+[0m14:54:58  6 of 16 PASS unique_stg_lignes_commande_order_item_id .......................... [[32mPASS[0m in 0.03s]
+[0m14:54:58  8 of 16 START test unique_stg_commandes_order_id ............................... [RUN]
+[0m14:54:58  7 of 16 PASS not_null_stg_commandes_order_id ................................... [[32mPASS[0m in 0.02s]
+[0m14:54:58  8 of 16 PASS unique_stg_commandes_order_id ..................................... [[32mPASS[0m in 0.02s]
+[0m14:54:58  9 of 16 START test not_null_stg_produits_product_id ............................ [RUN]
+[0m14:54:58  10 of 16 START test unique_stg_produits_product_id ............................. [RUN]
+[0m14:54:58  9 of 16 PASS not_null_stg_produits_product_id .................................. [[32mPASS[0m in 0.02s]
+[0m14:54:58  10 of 16 PASS unique_stg_produits_product_id ................................... [[32mPASS[0m in 0.01s]
+[0m14:54:58  11 of 16 START sql table model dbt_dev.mart_offres_produits .................... [RUN]
+[0m14:54:58  11 of 16 OK created sql table model dbt_dev.mart_offres_produits ............... [[32mSELECT 24[0m in 0.12s]
+[0m14:54:58  12 of 16 START test mart_ca_egal_ca_s1 ......................................... [RUN]
+[0m14:54:58  13 of 16 START test mart_offres_toutes_comptees ................................ [RUN]
+[0m14:54:58  13 of 16 PASS mart_offres_toutes_comptees ...................................... [[32mPASS[0m in 0.02s]
+[0m14:54:58  12 of 16 PASS mart_ca_egal_ca_s1 ............................................... [[32mPASS[0m in 0.02s]
+[0m14:54:58  14 of 16 START test mart_un_produit_par_ligne .................................. [RUN]
+[0m14:54:58  15 of 16 START test not_null_mart_offres_produits_product_id ................... [RUN]
+[0m14:54:58  14 of 16 PASS mart_un_produit_par_ligne ........................................ [[32mPASS[0m in 0.02s]
+[0m14:54:58  15 of 16 PASS not_null_mart_offres_produits_product_id ......................... [[32mPASS[0m in 0.02s]
+[0m14:54:58  16 of 16 START test unique_mart_offres_produits_product_id ..................... [RUN]
+[0m14:54:58  16 of 16 PASS unique_mart_offres_produits_product_id ........................... [[32mPASS[0m in 0.01s]
+[0m14:54:58  
+[0m14:54:58  Finished running 1 table model, 11 data tests, 4 view models in 0 hours 0 minutes and 0.47 seconds (0.47s).
+[0m14:54:58  
+[0m14:54:58  [32mCompleted successfully[0m
+[0m14:54:58  
+[0m14:54:58  Done. PASS=16 WARN=0 ERROR=0 SKIP=0 NO-OP=0 TOTAL=16

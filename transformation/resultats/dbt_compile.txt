@@ -1,0 +1,7 @@
+[0m14:54:53  Running with dbt=1.11.17
+[0m14:54:53  Registered adapter: postgres=1.11.0
+[0m14:54:53  Unable to do partial parsing because saved manifest not found. Starting full parse.
+[0m14:54:54  Found 7 models, 11 data tests, 4 sources, 478 macros
+[0m14:54:54  
+[0m14:54:54  Concurrency: 2 threads (target='dev')
+[0m14:54:54  

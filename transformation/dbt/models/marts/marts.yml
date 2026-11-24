@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: mart_offres_produits
+    description: >
+      Un produit du catalogue par ligne : meilleure offre fournisseur (prix minimum, stock)
+      et ventes NovaMarket des commandes terminées. Montants en centimes.
+    columns:
+      - name: product_id
+        description: Identifiant du produit (catalogue S2)
+        data_tests: [unique, not_null]
+      - name: prix_offre_min_cents
+        description: Prix le plus bas proposé par un fournisseur (vide si aucune offre)
+      - name: prix_moyen_vente_cents
+        description: CA des commandes terminées divisé par la quantité vendue
+      - name: ecart_vente_offre_cents
+        description: Prix moyen de vente moins prix de la meilleure offre

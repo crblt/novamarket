@@ -1,0 +1,17 @@
+name: novamarket_dbt
+version: "1.0.0"
+config-version: 2
+profile: novamarket_dbt
+model-paths: ["models"]
+test-paths: ["tests"]
+snapshot-paths: ["snapshots"]
+
+# Matérialisation par dossier
+models:
+  novamarket_dbt:
+    staging:
+      +materialized: view        # recalculée à chaque lecture, ne stocke rien
+    intermediate:
+      +materialized: ephemeral   # pas d'objet dans la base : son SQL est injecté dans le modèle suivant
+    marts:
+      +materialized: table       # résultat stocké, reconstruit à chaque dbt run

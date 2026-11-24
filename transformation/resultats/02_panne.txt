@@ -1,0 +1,13 @@
+ERREUR : panne simulée après 5 lignes écrites -> ROLLBACK, rien n'a été écrit pour ce lot
+{
+  "lot_id": "lot-20261124-155412-139603",
+  "statut": "echec",
+  "fichier": "/Users/chloe/novamarket/ingestion/data/valid/offres.jsonl",
+  "lues": 5,
+  "inserees": 0,
+  "mises_a_jour": 0,
+  "inchangees (ignorées)": 0,
+  "rejetees": 0,
+  "motifs_rejet": {},
+  "offres_en_base": 0
+}

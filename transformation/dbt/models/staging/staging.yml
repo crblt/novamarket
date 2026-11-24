@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: stg_offres
+    description: Offres fournisseurs. Grain = une offre à une date.
+  - name: stg_produits
+    description: Catalogue. Grain = un produit.
+    columns:
+      - name: product_id
+        data_tests: [unique, not_null]
+  - name: stg_commandes
+    description: Commandes. Grain = une commande.
+    columns:
+      - name: order_id
+        data_tests: [unique, not_null]
+  - name: stg_lignes_commande
+    description: Articles commandés. Grain = un article dans une commande.
+    columns:
+      - name: order_item_id
+        data_tests: [unique, not_null]

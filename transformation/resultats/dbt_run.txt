@@ -1,0 +1,22 @@
+[0m14:54:55  Running with dbt=1.11.17
+[0m14:54:55  Registered adapter: postgres=1.11.0
+[0m14:54:56  Found 7 models, 11 data tests, 4 sources, 478 macros
+[0m14:54:56  
+[0m14:54:56  Concurrency: 2 threads (target='dev')
+[0m14:54:56  
+[0m14:54:56  1 of 5 START sql view model dbt_dev.stg_commandes .............................. [RUN]
+[0m14:54:56  2 of 5 START sql view model dbt_dev.stg_lignes_commande ........................ [RUN]
+[0m14:54:56  1 of 5 OK created sql view model dbt_dev.stg_commandes ......................... [[32mCREATE VIEW[0m in 0.07s]
+[0m14:54:56  2 of 5 OK created sql view model dbt_dev.stg_lignes_commande ................... [[32mCREATE VIEW[0m in 0.07s]
+[0m14:54:56  4 of 5 START sql view model dbt_dev.stg_produits ............................... [RUN]
+[0m14:54:56  3 of 5 START sql view model dbt_dev.stg_offres ................................. [RUN]
+[0m14:54:56  4 of 5 OK created sql view model dbt_dev.stg_produits .......................... [[32mCREATE VIEW[0m in 0.03s]
+[0m14:54:56  3 of 5 OK created sql view model dbt_dev.stg_offres ............................ [[32mCREATE VIEW[0m in 0.03s]
+[0m14:54:56  5 of 5 START sql table model dbt_dev.mart_offres_produits ...................... [RUN]
+[0m14:54:56  5 of 5 OK created sql table model dbt_dev.mart_offres_produits ................. [[32mSELECT 24[0m in 0.09s]
+[0m14:54:56  
+[0m14:54:56  Finished running 1 table model, 4 view models in 0 hours 0 minutes and 0.30 seconds (0.30s).
+[0m14:54:56  
+[0m14:54:56  [32mCompleted successfully[0m
+[0m14:54:56  
+[0m14:54:56  Done. PASS=5 WARN=0 ERROR=0 SKIP=0 NO-OP=0 TOTAL=5

@@ -56,3 +56,19 @@ python ingestion/src/collecteur.py --scenario atelier --run atelier01
 ```
 
 Le détail est dans `ingestion/RAPPORT.md`. Les offres valides sont dans `ingestion/data/valid/offres.jsonl` (entrée de S4).
+
+## Chargement PostgreSQL et dbt (séance S4)
+
+Depuis `novamarket/`, venv activé, PostgreSQL démarré et catalogue S2 chargé :
+
+```bash
+export NOVAMARKET_DSN="host=127.0.0.1 port=15432 dbname=novamarket user=atelier"
+read -rs PGPASSWORD; export PGPASSWORD
+python transformation/chargement_postgres.py
+export DBT_ENV_SECRET_PASSWORD="$PGPASSWORD" DBT_DATABASE=novamarket
+docker compose --profile transfo build dbt
+docker compose --profile transfo run --rm --no-deps --user "$(id -u):$(id -g)" -w /projet -e DBT_ENV_SECRET_PASSWORD -e DBT_DATABASE dbt dbt build --profiles-dir /work/profil
+```
+
+Détails, résultats et limites : `transformation/RAPPORT.md`. Preuves : `transformation/resultats/`.
+Limite principale : relancer `s1/travail/sql/tout_lancer.sql` recrée le schéma `metier`, il faut ensuite relancer S2, ce chargement, puis `dbt build`.

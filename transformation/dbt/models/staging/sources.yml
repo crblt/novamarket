@@ -1,0 +1,20 @@
+version: 2
+
+sources:
+  - name: fournisseur
+    description: Offres chargées par transformation/chargement_postgres.py
+    schema: fournisseur
+    tables:
+      - name: offres
+        description: Une ligne = une offre observée à une date (clé offer_id + observed_on).
+
+  - name: metier
+    description: Tables NovaMarket construites en S1 et S2
+    schema: metier
+    tables:
+      - name: products
+        description: Une ligne = un produit du catalogue.
+      - name: orders
+        description: Une ligne = une commande.
+      - name: order_items
+        description: Une ligne = un article dans une commande.

@@ -1,0 +1,12 @@
+{
+  "lot_id": "lot-20261124-155412-428949",
+  "statut": "succes",
+  "fichier": "/Users/chloe/novamarket/ingestion/data/valid/offres.jsonl",
+  "lues": 20,
+  "inserees": 0,
+  "mises_a_jour": 0,
+  "inchangees (ignorées)": 20,
+  "rejetees": 0,
+  "motifs_rejet": {},
+  "offres_en_base": 20
+}
