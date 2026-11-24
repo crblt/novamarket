@@ -1,37 +1,36 @@
-[0m14:57:27  Running with dbt=1.11.17
-[0m14:57:27  dbt version: 1.11.17
-[0m14:57:27  python version: 3.12.16
-[0m14:57:27  python path: /usr/local/bin/python3.12
-[0m14:57:27  os info: Linux-7.0.14-linuxkit-aarch64-with-glibc2.41
-[0m14:57:27  Using profiles dir at /work/profil
-[0m14:57:27  Using profiles.yml file at /work/profil/profiles.yml
-[0m14:57:27  Using dbt_project.yml file at /projet/dbt_project.yml
-[0m14:57:27  adapter type: postgres
-[0m14:57:27  adapter version: 1.11.0
-[0m14:57:27  Configuration:
-[0m14:57:27    profiles.yml file [[32mOK found and valid[0m]
-[0m14:57:27    dbt_project.yml file [[32mOK found and valid[0m]
-[0m14:57:27  Required dependencies:
-[0m14:57:27   - git [[32mOK found[0m]
+[0m15:25:40  Running with dbt=1.11.17
+[0m15:25:40  dbt version: 1.11.17
+[0m15:25:40  python version: 3.12.16
+[0m15:25:40  python path: /usr/local/bin/python3.12
+[0m15:25:40  os info: Linux-7.0.14-linuxkit-aarch64-with-glibc2.36
+[0m15:25:40  Using profiles dir at /work/profil
+[0m15:25:40  Using profiles.yml file at /work/profil/profiles.yml
+[0m15:25:40  Using dbt_project.yml file at /projet/dbt_project.yml
+[0m15:25:40  adapter type: postgres
+[0m15:25:40  adapter version: 1.10.2
+[0m15:25:40  Configuration:
+[0m15:25:40    profiles.yml file [[32mOK found and valid[0m]
+[0m15:25:40    dbt_project.yml file [[32mOK found and valid[0m]
+[0m15:25:40  Required dependencies:
+[0m15:25:40   - git [[32mOK found[0m]
 
-[0m14:57:27  Connection:
-[0m14:57:27    host: postgres
-[0m14:57:27    port: 5432
-[0m14:57:27    user: atelier
-[0m14:57:27    database: novamarket
-[0m14:57:27    schema: dbt_dev
-[0m14:57:27    connect_timeout: 10
-[0m14:57:27    role: None
-[0m14:57:27    search_path: None
-[0m14:57:27    keepalives_idle: 0
-[0m14:57:27    sslmode: None
-[0m14:57:27    sslcert: None
-[0m14:57:27    sslkey: None
-[0m14:57:27    sslrootcert: None
-[0m14:57:27    application_name: dbt
-[0m14:57:27    autocommit: False
-[0m14:57:27    retries: 1
-[0m14:57:27  Registered adapter: postgres=1.11.0
-[0m14:57:27    Connection test: [[32mOK connection ok[0m]
+[0m15:25:40  Connection:
+[0m15:25:40    host: postgres
+[0m15:25:40    port: 5432
+[0m15:25:40    user: atelier
+[0m15:25:40    database: novamarket
+[0m15:25:40    schema: dbt_dev
+[0m15:25:40    connect_timeout: 10
+[0m15:25:40    role: None
+[0m15:25:40    search_path: None
+[0m15:25:40    keepalives_idle: 0
+[0m15:25:40    sslmode: None
+[0m15:25:40    sslcert: None
+[0m15:25:40    sslkey: None
+[0m15:25:40    sslrootcert: None
+[0m15:25:40    application_name: dbt
+[0m15:25:40    retries: 1
+[0m15:25:40  Registered adapter: postgres=1.10.2
+[0m15:25:41    Connection test: [[32mOK connection ok[0m]
 
-[0m14:57:27  [32mAll checks passed![0m
+[0m15:25:41  [32mAll checks passed![0m
