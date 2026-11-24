@@ -1,12 +1,13 @@
-# NovaMarket – S1 et S2
+# NovaMarket
 
-Base PostgreSQL NovaMarket : import des ventes (S1), catalogue et analyses (S2), benchmark et index (S3).
+Base PostgreSQL NovaMarket : import des ventes (S1), catalogue et analyses (S2), benchmark et index (dossier s3/), puis collecte asynchrone des offres fournisseurs (séance S3, dossier ingestion/).
 
 | Dossier | Contenu |
 | --- | --- |
 | s1/travail | tables, import, rejets, indicateurs et anomalies (voir son README et son RAPPORT) |
 | s2/travail | catalogue, classements, évolution, segmentation, hiérarchie (RAPPORT.md) |
 | s3/travail | benchmark : mesures avant / après index (RAPPORT.md et resultats/) |
+| ingestion | séance S3 : collecteur Python asynchrone de l'API fournisseur (CONTRAT.md et RAPPORT.md) |
 
 Les fichiers fournis (`s1/donnees`, `s2/donnees`, `s3/generer.sql`) ne sont pas modifiés.
 
@@ -41,6 +42,20 @@ docker compose exec -T postgres psql -X -U atelier -d novamarket < s3/travail/sq
 Attention à l'ordre : `s1/travail/sql/tout_lancer.sql` recrée les tables de S1. Il faut ensuite relancer `01_catalogue.sql` de S2.
 
 Pour refaire les mesures « avant index » une deuxième fois, il faut d'abord supprimer l'index : `DROP INDEX benchmark.benchmark_sales_store_idx;`
+
+## Ingestion (séance S3)
+
+Python 3.12 et Docker Desktop. Depuis `novamarket/` :
+
+```bash
+python3.12 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements-v3.txt
+docker compose up -d --build --wait fournisseur
+python ingestion/src/collecteur.py --scenario atelier --run atelier01
+```
+
+Le détail est dans `ingestion/RAPPORT.md`. Les offres valides sont dans `ingestion/data/valid/offres.jsonl` (entrée de S4).
 
 ## Limites
 

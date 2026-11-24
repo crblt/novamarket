@@ -1,0 +1,12 @@
+2026-11-24 11:47:39,138 INFO début : scénario panne, run panne01, concurrence 3
+2026-11-24 11:47:39,264 INFO page 1 reçue (tentative 1, 4 offres)
+2026-11-24 11:47:39,399 INFO page 4 reçue (tentative 1, 4 offres)
+2026-11-24 11:47:39,400 INFO page 2 reçue (tentative 1, 4 offres)
+2026-11-24 11:47:39,401 INFO page 3 reçue (tentative 1, 4 offres)
+2026-11-24 11:47:39,531 WARNING page 6 tentative 1 : HTTP 503, nouvel essai dans 0.5 s
+2026-11-24 11:47:39,532 INFO page 5 reçue (tentative 1, 4 offres)
+2026-11-24 11:47:40,166 WARNING page 6 tentative 2 : HTTP 503, nouvel essai dans 1.0 s
+2026-11-24 11:47:41,300 ERROR page 6 abandonnée après 3 tentatives : HTTP 503
+2026-11-24 11:47:41,304 ERROR lot incomplet : page 6 : HTTP 503
+2026-11-24 11:47:41,304 ERROR rien n'est publié dans valid/ (l'ancien offres.jsonl n'est pas modifié)
+2026-11-24 11:47:41,305 INFO bilan : {"scenario": "panne", "run": "panne01", "statut": "echec", "concurrence_max": 3, "appels_simultanes_observes": 3, "pages_attendues": 6, "pages_recues": 5, "requetes_http": 8, "reprises": 2, "offres_vues": 20, "offres_valides": 0, "offres_rejetees": 0, "motifs_rejet": {}, "problemes": ["page 6 : HTTP 503"], "duree_secondes": 2.163}

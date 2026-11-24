@@ -1,0 +1,17 @@
+{
+  "scenario": "clean",
+  "run": "clean01",
+  "statut": "succes",
+  "concurrence_max": 3,
+  "appels_simultanes_observes": 3,
+  "pages_attendues": 6,
+  "pages_recues": 6,
+  "requetes_http": 6,
+  "reprises": 0,
+  "offres_vues": 24,
+  "offres_valides": 24,
+  "offres_rejetees": 0,
+  "motifs_rejet": {},
+  "problemes": [],
+  "duree_secondes": 0.384
+}

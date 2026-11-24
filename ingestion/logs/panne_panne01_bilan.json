@@ -1,0 +1,19 @@
+{
+  "scenario": "panne",
+  "run": "panne01",
+  "statut": "echec",
+  "concurrence_max": 3,
+  "appels_simultanes_observes": 3,
+  "pages_attendues": 6,
+  "pages_recues": 5,
+  "requetes_http": 8,
+  "reprises": 2,
+  "offres_vues": 20,
+  "offres_valides": 0,
+  "offres_rejetees": 0,
+  "motifs_rejet": {},
+  "problemes": [
+    "page 6 : HTTP 503"
+  ],
+  "duree_secondes": 2.163
+}

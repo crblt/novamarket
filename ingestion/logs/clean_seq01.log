@@ -1,0 +1,8 @@
+2026-11-24 11:47:36,337 INFO début : scénario clean, run seq01, concurrence 1
+2026-11-24 11:47:36,464 INFO page 1 reçue (tentative 1, 4 offres)
+2026-11-24 11:47:36,589 INFO page 2 reçue (tentative 1, 4 offres)
+2026-11-24 11:47:36,717 INFO page 3 reçue (tentative 1, 4 offres)
+2026-11-24 11:47:36,847 INFO page 4 reçue (tentative 1, 4 offres)
+2026-11-24 11:47:36,976 INFO page 5 reçue (tentative 1, 4 offres)
+2026-11-24 11:47:37,108 INFO page 6 reçue (tentative 1, 4 offres)
+2026-11-24 11:47:37,112 INFO bilan : {"scenario": "clean", "run": "seq01", "statut": "succes", "concurrence_max": 1, "appels_simultanes_observes": 1, "pages_attendues": 6, "pages_recues": 6, "requetes_http": 6, "reprises": 0, "offres_vues": 24, "offres_valides": 24, "offres_rejetees": 0, "motifs_rejet": {}, "problemes": [], "duree_secondes": 0.773}

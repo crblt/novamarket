@@ -1,0 +1,15 @@
+2026-11-24 11:47:37,241 INFO début : scénario atelier, run atelier01, concurrence 3
+2026-11-24 11:47:37,366 INFO page 1 reçue (tentative 1, 4 offres)
+2026-11-24 11:47:37,498 WARNING page 2 tentative 1 : HTTP 429, nouvel essai dans 1.0 s
+2026-11-24 11:47:37,502 WARNING page 3 tentative 1 : JSON invalide, nouvel essai dans 0.5 s
+2026-11-24 11:47:37,627 INFO page 5 reçue (tentative 1, 4 offres)
+2026-11-24 11:47:37,627 INFO page 6 reçue (tentative 1, 4 offres)
+2026-11-24 11:47:38,136 INFO page 3 reçue (tentative 2, 4 offres)
+2026-11-24 11:47:38,368 WARNING page 4 tentative 1 : timeout (plus de 1.0 s), nouvel essai dans 0.5 s
+2026-11-24 11:47:38,627 INFO page 2 reçue (tentative 2, 4 offres)
+2026-11-24 11:47:39,002 INFO page 4 reçue (tentative 2, 4 offres)
+2026-11-24 11:47:39,006 WARNING offre rejetée page 2 position 1 : champ manquant : supplier_id
+2026-11-24 11:47:39,006 WARNING offre rejetée page 3 position 2 : price_cents n'est pas un entier : 'inconnu'
+2026-11-24 11:47:39,006 WARNING offre rejetée page 5 position 1 : produit inconnu du catalogue : 9999
+2026-11-24 11:47:39,006 WARNING offre rejetée page 6 position 4 : doublon : O001 déjà reçu
+2026-11-24 11:47:39,008 INFO bilan : {"scenario": "atelier", "run": "atelier01", "statut": "succes", "concurrence_max": 3, "appels_simultanes_observes": 3, "pages_attendues": 6, "pages_recues": 6, "requetes_http": 9, "reprises": 3, "offres_vues": 24, "offres_valides": 20, "offres_rejetees": 4, "motifs_rejet": {"champ manquant": 1, "price_cents n'est pas un entier": 1, "produit inconnu du catalogue": 1, "doublon": 1}, "problemes": [], "duree_secondes": 1.763}
