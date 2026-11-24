@@ -1,4 +1,4 @@
-# NovaMarket – S1 et S2
+# NovaMarket S1 et S2
 
 Base PostgreSQL NovaMarket : import des ventes (S1), catalogue et analyses (S2), benchmark et index (S3).
 
