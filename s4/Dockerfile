@@ -3,3 +3,4 @@ RUN apt-get update && apt-get install -y --no-install-recommends git \
     && rm -rf /var/lib/apt/lists/*
 COPY dbt-dependances.txt /tmp/dbt-dependances.txt
 RUN pip install --no-cache-dir -r /tmp/dbt-dependances.txt && pip check
+

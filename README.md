@@ -66,9 +66,11 @@ export NOVAMARKET_DSN="host=127.0.0.1 port=15432 dbname=novamarket user=atelier"
 read -rs PGPASSWORD; export PGPASSWORD
 python transformation/chargement_postgres.py
 export DBT_ENV_SECRET_PASSWORD="$PGPASSWORD" DBT_DATABASE=novamarket
+mkdir -p s4/travail/profil && cp transformation/dbt/profiles.exemple.yml s4/travail/profil/profiles.yml
 docker compose --profile transfo build dbt
 docker compose --profile transfo run --rm --no-deps --user "$(id -u):$(id -g)" -w /projet -e DBT_ENV_SECRET_PASSWORD -e DBT_DATABASE dbt dbt build --profiles-dir /work/profil
 ```
 
 Détails, résultats et limites : `transformation/RAPPORT.md`. Preuves : `transformation/resultats/`.
+`s4/` est le dossier du kit (Dockerfile de l'image dbt, exemple indépendant). `s4/travail/` est ignoré par Git : le profil dbt se recrée avec la commande `cp` ci-dessus.
 Limite principale : relancer `s1/travail/sql/tout_lancer.sql` recrée le schéma `metier`, il faut ensuite relancer S2, ce chargement, puis `dbt build`.

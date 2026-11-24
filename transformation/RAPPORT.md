@@ -63,7 +63,7 @@ Une ligne refusée va dans `fournisseur.rejets`, avec son numéro, sa cause et s
 **Un seul projet** : `transformation/dbt/`, monté dans le conteneur sous `/projet`. Il contient :
 - `dbt_project.yml` : le nom du projet, le profil et la matérialisation par dossier ;
 - `models/staging/sources.yml` : les tables PostgreSQL d'entrée, déclarées avec `source()` (`fournisseur.offres`, `metier.products`, `metier.orders`, `metier.order_items`) ;
-- le profil de connexion `s4/travail/profil/profiles.yml`, sans mot de passe écrit dedans : il est lu dans la variable `DBT_ENV_SECRET_PASSWORD`. Les modèles sont créés dans le schéma `dbt_dev`.
+- le profil de connexion `s4/travail/profil/profiles.yml`, copié depuis `transformation/dbt/profiles.exemple.yml`, sans mot de passe écrit dedans : il est lu dans la variable `DBT_ENV_SECRET_PASSWORD`. Le dossier `s4/travail/` est ignoré par Git (fichier `s4/.gitignore` du kit). Les modèles sont créés dans le schéma `dbt_dev`.
 
 **Matérialisations** (fixées dans `dbt_project.yml`) :
 
@@ -132,6 +132,7 @@ python transformation/chargement_postgres.py --simuler-panne 5
 python transformation/chargement_postgres.py     # 1er passage
 python transformation/chargement_postgres.py     # rejeu
 
+mkdir -p s4/travail/profil && cp transformation/dbt/profiles.exemple.yml s4/travail/profil/profiles.yml
 docker compose --profile transfo build dbt
 export DBT_ENV_SECRET_PASSWORD="$PGPASSWORD"
 export DBT_DATABASE=novamarket
