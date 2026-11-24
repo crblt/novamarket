@@ -1,4 +1,4 @@
-# NovaMarket
+# NovaMarket S1 et S2
 
 Base PostgreSQL NovaMarket : import des ventes (S1), catalogue et analyses (S2), benchmark et index (dossier s3/), puis collecte asynchrone des offres fournisseurs (séance S3, dossier ingestion/).
 
@@ -13,7 +13,7 @@ Les fichiers fournis (`s1/donnees`, `s2/donnees`, `s3/generer.sql`) ne sont pas 
 
 ## Tout relancer dans l'ordre
 
-Depuis le dossier `novamarket/`, Docker Desktop ouvert :
+Depuis le dossier `novamarket/` :
 
 ```bash
 docker compose up -d --wait postgres
@@ -39,7 +39,7 @@ docker compose exec -T postgres psql -X -U atelier -d novamarket < s3/travail/sq
 docker compose exec -T postgres psql -X -U atelier -d novamarket < s3/travail/sql/04_jointure_estimations.sql > s3/travail/resultats/jointure_estimations.txt
 ```
 
-Attention à l'ordre : `s1/travail/sql/tout_lancer.sql` recrée les tables de S1. Il faut ensuite relancer `01_catalogue.sql` de S2.
+`s1/travail/sql/tout_lancer.sql` recrée les tables de S1. ensuite il faut relancer `01_catalogue.sql` de S2
 
 Pour refaire les mesures « avant index » une deuxième fois, il faut d'abord supprimer l'index : `DROP INDEX benchmark.benchmark_sales_store_idx;`
 
@@ -56,8 +56,3 @@ python ingestion/src/collecteur.py --scenario atelier --run atelier01
 ```
 
 Le détail est dans `ingestion/RAPPORT.md`. Les offres valides sont dans `ingestion/data/valid/offres.jsonl` (entrée de S4).
-
-## Limites
-
-- Les temps du benchmark dépendent de la machine et du cache : ils sont à comparer entre eux, sur le même poste.
-- Sur Mac, il ne faut pas mettre le projet dans un dossier iCloud (Documents) : Docker n'arrive pas à lire les fichiers.
