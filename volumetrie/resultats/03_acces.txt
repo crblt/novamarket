@@ -1,0 +1,1 @@
+Streaming accessible ; colonnes : Start_Zone, Trip_Distance, Trip_Duration

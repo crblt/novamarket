@@ -1,0 +1,1 @@
+{"revision": "5941adbf8c0b9930e47002dc3103de3f9291360d", "parquet": 371, "octets": 39350805895, "taille_partition": 41899074, "licence_miroir": "unknown"}

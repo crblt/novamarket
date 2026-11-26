@@ -8,6 +8,9 @@ Base PostgreSQL NovaMarket : import des ventes (S1), catalogue et analyses (S2),
 | s2/travail | catalogue, classements, évolution, segmentation, hiérarchie (RAPPORT.md) |
 | s3/travail | benchmark : mesures avant / après index (RAPPORT.md et resultats/) |
 | ingestion | séance S3 : collecteur Python asynchrone de l'API fournisseur (CONTRAT.md et RAPPORT.md) |
+| transformation | séance S4 : chargement PostgreSQL et projet dbt (RAPPORT.md et resultats/) |
+| volumetrie | séance S5 : streaming Hugging Face et pipeline PySpark (RAPPORT.md et resultats/) |
+| publication | séance S5 : jeu synthétique et Dataset Card publiés sur le Hub |
 
 Les fichiers fournis (`s1/donnees`, `s2/donnees`, `s3/generer.sql`) ne sont pas modifiés.
 
@@ -74,3 +77,17 @@ docker compose --profile transfo run --rm --no-deps --user "$(id -u):$(id -g)" -
 Détails, résultats et limites : `transformation/RAPPORT.md`. Preuves : `transformation/resultats/`.
 `s4/` est le dossier du kit (Dockerfile de l'image dbt, exemple indépendant). `s4/travail/` est ignoré par Git : le profil dbt se recrée avec la commande `cp` ci-dessus.
 Limite principale : relancer `s1/travail/sql/tout_lancer.sql` recrée le schéma `metier`, il faut ensuite relancer S2, ce chargement, puis `dbt build`.
+
+## Streaming, PySpark et Hub (séance S5)
+
+Depuis `novamarket/`, venv activé, avec Java (21 demandé, 22 utilisé) :
+
+```bash
+python -m pip install -r requirements-v3.txt -r volumetrie/requirements.txt
+export JAVA_HOME="$(/usr/libexec/java_home -v 21)" SPARK_LOCAL_IP=127.0.0.1
+export PYSPARK_PYTHON="$(command -v python)" PYSPARK_SUBMIT_ARGS="--driver-memory 1g pyspark-shell"
+HF_HUB_DISABLE_XET=1 python volumetrie/streaming/extraire.py
+python volumetrie/spark/pipeline.py volumetrie/donnees/extraction.jsonl volumetrie/sorties/essai1
+```
+
+Dépôt Hub privé : `crblt/novamarket-s5-exercice` (v1 `0bb7db6`, v2 `a3664d6`). Détails et commandes Hub : `volumetrie/RAPPORT.md`. Aucun token dans le dépôt : connexion avec `hf auth login`.

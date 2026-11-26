@@ -5,3 +5,4 @@ __pycache__/
 transformation/dbt/target/
 transformation/dbt/logs/
 transformation/dbt/dbt_packages/
+volumetrie/sorties/

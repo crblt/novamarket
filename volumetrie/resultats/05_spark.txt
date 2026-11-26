@@ -1,0 +1,79 @@
+--- Schéma du JSONL
+root
+ |-- Start_Zone: long (nullable = true)
+ |-- Trip_Distance: double (nullable = true)
+ |-- Trip_Duration: double (nullable = true)
+
+Lignes lues : 9846 | après filtre : 9846 | enlevées : 0
+--- Schéma des zones
+root
+ |-- zone_id: integer (nullable = true)
+ |-- arrondissement: string (nullable = true)
+ |-- zone: string (nullable = true)
+
+Zones : 265 lignes, 265 clés différentes, 0 clé vide
+Trajets sans zone connue : 0
++-------+-----+
+|zone_id|count|
++-------+-----+
++-------+-----+
+
+Avant jointure : 9846 | après jointure : 9846
+Partitions des trajets : 1
+Partitions du résultat : 1
+--- Plan d'exécution
+== Physical Plan ==
+AdaptiveSparkPlan isFinalPlan=true
++- == Final Plan ==
+   ResultQueryStage 3
+   +- *(4) Sort [nb_trajets#129L DESC NULLS LAST], true, 0
+      +- AQEShuffleRead coalesced
+         +- ShuffleQueryStage 2
+            +- Exchange rangepartitioning(nb_trajets#129L DESC NULLS LAST, 2), ENSURE_REQUIREMENTS, [plan_id=842]
+               +- *(3) HashAggregate(keys=[arrondissement#128], functions=[count(1), avg(distance_km#20), avg(duree_s#18), avg(vitesse_kmh#21)])
+                  +- AQEShuffleRead coalesced
+                     +- ShuffleQueryStage 1
+                        +- Exchange hashpartitioning(arrondissement#128, 2), ENSURE_REQUIREMENTS, [plan_id=804]
+                           +- *(2) HashAggregate(keys=[arrondissement#128], functions=[partial_count(1), partial_avg(distance_km#20), partial_avg(duree_s#18), partial_avg(vitesse_kmh#21)])
+                              +- *(2) Project [duree_s#18, distance_km#20, vitesse_kmh#21, coalesce(arrondissement#56, Zone inconnue) AS arrondissement#128]
+                                 +- *(2) BroadcastHashJoin [zone_id#16], [zone_id#55], LeftOuter, BuildRight, false
+                                    :- *(2) Project [zone_id#16, duree_s#18, distance_km#20, (distance_km#20 / (duree_s#18 / 3600.0)) AS vitesse_kmh#21]
+                                    :  +- *(2) Project [cast(Start_Zone#6L as int) AS zone_id#16, Trip_Duration#8 AS duree_s#18, (Trip_Distance#7 * 1.609344) AS distance_km#20]
+                                    :     +- *(2) Filter (((((((isnotnull(Start_Zone#6L) AND isnotnull(Trip_Distance#7)) AND isnotnull(Trip_Duration#8)) AND isnotnull(cast(Start_Zone#6L as int))) AND (Trip_Distance#7 > 0.0)) AND (Trip_Distance#7 <= 100.0)) AND (Trip_Duration#8 > 0.0)) AND (Trip_Duration#8 <= 14400.0))
+                                    :        +- FileScan json [Start_Zone#6L,Trip_Distance#7,Trip_Duration#8] Batched: false, DataFilters: [isnotnull(Start_Zone#6L), isnotnull(Trip_Distance#7), isnotnull(Trip_Duration#8), isnotnull(cast..., Format: JSON, Location: InMemoryFileIndex(1 paths)[file:/Users/chloe/novamarket/volumetrie/donnees/extraction.jsonl], PartitionFilters: [], PushedFilters: [IsNotNull(Start_Zone), IsNotNull(Trip_Distance), IsNotNull(Trip_Duration), GreaterThan(Trip_Dist..., ReadSchema: struct<Start_Zone:bigint,Trip_Distance:double,Trip_Duration:double>
+                                    +- BroadcastQueryStage 0
+                                       +- BroadcastExchange HashedRelationBroadcastMode(List(cast(input[0, int, true] as bigint)),false), [plan_id=739]
+                                          +- *(1) Project [cast(LocationID#51 as int) AS zone_id#55, Borough#52 AS arrondissement#56]
+                                             +- *(1) Filter isnotnull(cast(LocationID#51 as int))
+                                                +- FileScan csv [LocationID#51,Borough#52] Batched: false, DataFilters: [isnotnull(cast(LocationID#51 as int))], Format: CSV, Location: InMemoryFileIndex(1 paths)[file:/Users/chloe/novamarket/volumetrie/secours/zones.csv], PartitionFilters: [], PushedFilters: [], ReadSchema: struct<LocationID:string,Borough:string>
++- == Initial Plan ==
+   Sort [nb_trajets#129L DESC NULLS LAST], true, 0
+   +- Exchange rangepartitioning(nb_trajets#129L DESC NULLS LAST, 2), ENSURE_REQUIREMENTS, [plan_id=708]
+      +- HashAggregate(keys=[arrondissement#128], functions=[count(1), avg(distance_km#20), avg(duree_s#18), avg(vitesse_kmh#21)])
+         +- Exchange hashpartitioning(arrondissement#128, 2), ENSURE_REQUIREMENTS, [plan_id=705]
+            +- HashAggregate(keys=[arrondissement#128], functions=[partial_count(1), partial_avg(distance_km#20), partial_avg(duree_s#18), partial_avg(vitesse_kmh#21)])
+               +- Project [duree_s#18, distance_km#20, vitesse_kmh#21, coalesce(arrondissement#56, Zone inconnue) AS arrondissement#128]
+                  +- BroadcastHashJoin [zone_id#16], [zone_id#55], LeftOuter, BuildRight, false
+                     :- Project [zone_id#16, duree_s#18, distance_km#20, (distance_km#20 / (duree_s#18 / 3600.0)) AS vitesse_kmh#21]
+                     :  +- Project [cast(Start_Zone#6L as int) AS zone_id#16, Trip_Duration#8 AS duree_s#18, (Trip_Distance#7 * 1.609344) AS distance_km#20]
+                     :     +- Filter (((((((isnotnull(Start_Zone#6L) AND isnotnull(Trip_Distance#7)) AND isnotnull(Trip_Duration#8)) AND isnotnull(cast(Start_Zone#6L as int))) AND (Trip_Distance#7 > 0.0)) AND (Trip_Distance#7 <= 100.0)) AND (Trip_Duration#8 > 0.0)) AND (Trip_Duration#8 <= 14400.0))
+                     :        +- FileScan json [Start_Zone#6L,Trip_Distance#7,Trip_Duration#8] Batched: false, DataFilters: [isnotnull(Start_Zone#6L), isnotnull(Trip_Distance#7), isnotnull(Trip_Duration#8), isnotnull(cast..., Format: JSON, Location: InMemoryFileIndex(1 paths)[file:/Users/chloe/novamarket/volumetrie/donnees/extraction.jsonl], PartitionFilters: [], PushedFilters: [IsNotNull(Start_Zone), IsNotNull(Trip_Distance), IsNotNull(Trip_Duration), GreaterThan(Trip_Dist..., ReadSchema: struct<Start_Zone:bigint,Trip_Distance:double,Trip_Duration:double>
+                     +- BroadcastExchange HashedRelationBroadcastMode(List(cast(input[0, int, true] as bigint)),false), [plan_id=700]
+                        +- Project [cast(LocationID#51 as int) AS zone_id#55, Borough#52 AS arrondissement#56]
+                           +- Filter isnotnull(cast(LocationID#51 as int))
+                              +- FileScan csv [LocationID#51,Borough#52] Batched: false, DataFilters: [isnotnull(cast(LocationID#51 as int))], Format: CSV, Location: InMemoryFileIndex(1 paths)[file:/Users/chloe/novamarket/volumetrie/secours/zones.csv], PartitionFilters: [], PushedFilters: [], ReadSchema: struct<LocationID:string,Borough:string>
+
+
+--- Parquet relu
++--------------+----------+---------------+-------------+---------------+
+|arrondissement|nb_trajets|distance_moy_km|duree_moy_min|vitesse_moy_kmh|
++--------------+----------+---------------+-------------+---------------+
+|Manhattan     |9421      |4.12           |15.5         |16.9           |
+|Queens        |306       |20.1           |23.6         |49.2           |
+|Brooklyn      |87        |7.06           |18.7         |21.4           |
+|Unknown       |18        |5.09           |20.3         |15.2           |
+|Bronx         |10        |3.73           |10.3         |19.3           |
+|N/A           |4         |11.6           |12.7         |51.9           |
++--------------+----------+---------------+-------------+---------------+
+
+Total des trajets dans le Parquet : 9846 (attendu 9846)

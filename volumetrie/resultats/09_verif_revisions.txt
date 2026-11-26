@@ -1,0 +1,7 @@
+v1 = 0bb7db6950a40499991e856330c9eb7efcf420a6
+       6
+v2 = a3664d665c6ceb17814be2cf8cc7b7b826da131f
+       4
+5,6d4
+< {"Start_Zone":7,"Trip_Distance":-2.0,"Trip_Duration":500}
+< {"Start_Zone":999,"Trip_Distance":1.0,"Trip_Duration":300}

@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-26T11:06:27",
+  "source": "DinoPonjevic/NYC_TaxiData",
+  "revision": "5941adbf8c0b9930e47002dc3103de3f9291360d",
+  "partition": "2024/yellow/yellow_tripdata_2024-01.parquet",
+  "colonnes": [
+    "Start_Zone",
+    "Trip_Distance",
+    "Trip_Duration"
+  ],
+  "limite": 10000,
+  "parcourues": 10000,
+  "retenues": 9846,
+  "rejetees": 154,
+  "rejets_par_raison": {
+    "distance <= 0": 142,
+    "durée > 4 h": 12
+  },
+  "regles": [
+    "les 3 colonnes sont remplies et numériques",
+    "0 < Trip_Distance <= 100 miles",
+    "0 < Trip_Duration <= 14400 secondes (4 h)"
+  ]
+}
